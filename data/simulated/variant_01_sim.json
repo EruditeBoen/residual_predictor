@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "circuit_id": "variant_01",
+    "component_values": {
+      "r_ohms": 100.0,
+      "l_henries": 0.001,
+      "c_farads": 1e-07
+    },
+    "sweep_config": {
+      "f_start_hz": 500.0,
+      "f_stop_hz": 100000.0,
+      "points": 40
+    }
+  },
+  "measurements": [
+    {
+      "frequency_hz": 500.0,
+      "gain_db": -30.0527183,
+      "phase_deg": 88.19881510844014
+    },
+    {
+      "frequency_hz": 572.757485,
+      "gain_db": -28.8713663,
+      "phase_deg": 87.93629214924694
+    },
+    {
+      "frequency_hz": 656.102273,
+      "gain_db": -27.6895975,
+      "phase_deg": 87.63535466172141
+    },
+    {
+      "frequency_hz": 751.574976,
+      "gain_db": -26.5072825,
+      "phase_deg": 87.29030515354874
+    },
+    {
+      "frequency_hz": 860.940386,
+      "gain_db": -25.3242513,
+      "phase_deg": 86.89456320445188
+    },
+    {
+      "frequency_hz": 986.220101,
+      "gain_db": -24.1402818,
+      "phase_deg": 86.44050847575559
+    },
+    {
+      "frequency_hz": 1129.72989,
+      "gain_db": -22.9550834,
+      "phase_deg": 85.91929048839846
+    },
+    {
+      "frequency_hz": 1294.1225,
+      "gain_db": -21.7682766,
+      "phase_deg": 85.32058339699667
+    },
+    {
+      "frequency_hz": 1482.4367,
+      "gain_db": -20.5793661,
+      "phase_deg": 84.63228060333908
+    },
+    {
+      "frequency_hz": 1698.15343,
+      "gain_db": -19.3877076,
+      "phase_deg": 83.84009196705735
+    },
+    {
+      "frequency_hz": 1945.26017,
+      "gain_db": -18.1924647,
+      "phase_deg": 82.9270103819186
+    },
+    {
+      "frequency_hz": 2228.32465,
+      "gain_db": -16.9925561,
+      "phase_deg": 81.87258870308801
+    },
+    {
+      "frequency_hz": 2552.57925,
+      "gain_db": -15.7865918,
+      "phase_deg": 80.65193936281848
+    },
+    {
+      "frequency_hz": 2924.01774,
+      "gain_db": -14.5727993,
+      "phase_deg": 79.23432775906359
+    },
+    {
+      "frequency_hz": 3349.50609,
+      "gain_db": -13.3489467,
+      "phase_deg": 77.58115544403877
+    },
+    {
+      "frequency_hz": 3836.90937,
+      "gain_db": -12.1122766,
+      "phase_deg": 75.64301855890108
+    },
+    {
+      "frequency_hz": 4395.23712,
+      "gain_db": -10.8594909,
+      "phase_deg": 73.35538028352255
+    },
+    {
+      "frequency_hz": 5034.80992,
+      "gain_db": -9.58686838,
+      "phase_deg": 70.63213193678858
+    },
+    {
+      "frequency_hz": 5767.45014,
+      "gain_db": -8.29069871,
+      "phase_deg": 67.3560211436724
+    },
+    {
+      "frequency_hz": 6606.70047,
+      "gain_db": -6.96842314,
+      "phase_deg": 63.364665362498215
+    },
+    {
+      "frequency_hz": 7568.07429,
+      "gain_db": -5.62130108,
+      "phase_deg": 58.43120080836836
+    },
+    {
+      "frequency_hz": 8669.3424,
+      "gain_db": -4.2602386,
+      "phase_deg": 52.24157269799558
+    },
+    {
+      "frequency_hz": 9930.8615,
+      "gain_db": -2.91760844,
+      "phase_deg": 44.38194828367643
+    },
+    {
+      "frequency_hz": 11375.9505,
+      "gain_db": -1.6679492,
+      "phase_deg": 34.38287551270296
+    },
+    {
+      "frequency_hz": 13031.3216,
+      "gain_db": -0.652217328,
+      "phase_deg": 21.926959658912732
+    },
+    {
+      "frequency_hz": 14927.574,
+      "gain_db": -0.0708560528,
+      "phase_deg": 7.308501295915622
+    },
+    {
+      "frequency_hz": 17099.7595,
+      "gain_db": -0.0887252868,
+      "phase_deg": -8.175504354662795
+    },
+    {
+      "frequency_hz": 19588.0305,
+      "gain_db": -0.700103553,
+      "phase_deg": -22.69668307841362
+    },
+    {
+      "frequency_hz": 22438.3821,
+      "gain_db": -1.73409656,
+      "phase_deg": -35.013062796129965
+    },
+    {
+      "frequency_hz": 25703.5026,
+      "gain_db": -2.99207335,
+      "phase_deg": -44.87951663589862
+    },
+    {
+      "frequency_hz": 29443.747,
+      "gain_db": -4.33722104,
+      "phase_deg": -52.63211396648181
+    },
+    {
+      "frequency_hz": 33728.253,
+      "gain_db": -5.69808053,
+      "phase_deg": -58.74052009547886
+    },
+    {
+      "frequency_hz": 38636.2187,
+      "gain_db": -7.04395743,
+      "phase_deg": -63.613204713743436
+    },
+    {
+      "frequency_hz": 44258.367,
+      "gain_db": -8.36473475,
+      "phase_deg": -67.55873590342087
+    },
+    {
+      "frequency_hz": 50698.6219,
+      "gain_db": -9.65948447,
+      "phase_deg": -70.79972667552671
+    },
+    {
+      "frequency_hz": 58076.0303,
+      "gain_db": -10.9308819,
+      "phase_deg": -73.49554065711422
+    },
+    {
+      "frequency_hz": 66526.9622,
+      "gain_db": -12.1826591,
+      "phase_deg": -75.76134064613134
+    },
+    {
+      "frequency_hz": 76207.6311,
+      "gain_db": -13.4185207,
+      "phase_deg": -77.6817949077957
+    },
+    {
+      "frequency_hz": 87296.9822,
+      "gain_db": -14.6417355,
+      "phase_deg": -79.32043586722041
+    },
+    {
+      "frequency_hz": 100000.0,
+      "gain_db": -15.8550301,
+      "phase_deg": -80.72595576966687
+    }
+  ]
+}
