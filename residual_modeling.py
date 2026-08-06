@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import numpy as np
+import pandas as pd
 
 def average_hardware_runs(circuit_id, hardware_dir, output_dir):
     hw_paths = [Path(hardware_dir) / f"{circuit_id}_run{i}.json" for i in range(1, 4)]
@@ -40,19 +41,69 @@ def average_hardware_runs(circuit_id, hardware_dir, output_dir):
         json.dump(output_dict, f, indent=2)
 
 
-
-
 def build_variant_table(circuit_id, hardware_dir, simulated_dir):
-    pass
+    hw_path = Path(hardware_dir) / f"{circuit_id}.json" 
+    sim_path = Path(simulated_dir) / f"{circuit_id}_sim.json"
+
+    with open(hw_path) as f:
+        hw_data = json.load(f)
+
+    with open(sim_path) as f:
+        sim_data = json.load(f)
+
+    metadata = hw_data["metadata"]
+    measurements = hw_data["measurements"]
+
+    simulated = sim_data["measurements"]
+
+    r, l, c = metadata["component_values"]["r_ohms"], metadata["component_values"]["l_henries"], metadata["component_values"]["c_farads"]
+
+    frequency_hz = np.array([m["frequency_hz"] for m in measurements])
+    gain_db = np.array([m["gain_db"] for m in measurements])
+    phase_deg = np.array([m["phase_deg"] for m in measurements])
+
+    sim_freqs = np.array([m["frequency_hz"] for m in simulated])
+    sim_gain = np.array([m["gain_db"] for m in simulated])
+    sim_phase = np.array([m["phase_deg"] for m in simulated])
+
+    sorted_sim_freqs_idx = np.argsort(sim_freqs)
+
+    sorted_sim_freqs = sim_freqs[sorted_sim_freqs_idx]
+    sorted_sim_gain = sim_gain[sorted_sim_freqs_idx]
+    sorted_sim_phase = sim_phase[sorted_sim_freqs_idx]
+
+    log_sim_freqs = np.log10(sorted_sim_freqs)
+
+    output = []
+
+    for f, g, p in zip(frequency_hz, gain_db, phase_deg):
+        log_hw_freq = np.log10(f)
+
+        sim_g_interp = np.interp(log_hw_freq, log_sim_freqs, sorted_sim_gain)
+        sim_p_interp = np.interp(log_hw_freq, log_sim_freqs, sorted_sim_phase)
+
+        residual_gain = g - sim_g_interp
+
+        output.append({
+            "circuit_id": circuit_id,
+            "r_ohms": r, "l_henries": l, "c_farads": c,
+            "frequency_hz": f, "log_frequency_hz": log_hw_freq,
+            "sim_gain_db": sim_g_interp, "sim_phase_deg": sim_p_interp,
+            "measured_gain_db": g, "residual_gain_db": residual_gain,
+            })
+
+    return output
 
 def build_full_dataset(circuit_ids, hardware_dir, simulated_dir):
-    pass
+    rows = []
+    for variant in circuit_ids:
+        variant_table = build_variant_table(variant, hardware_dir, simulated_dir)
+        rows.extend(variant_table)
+    df = pd.DataFrame(rows)
+    return df
 
 def leave_one_variant_out_eval(df):
     pass
 
 def summarize(fold_results):
     pass
-
-for i in range(1,8):
-    average_hardware_runs(f"variant_{i:02d}", "data/hardware", "data/hardware")
