@@ -3,6 +3,10 @@ import json
 import numpy as np
 import pandas as pd
 
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.metrics import mean_absolute_error
+
+
 def average_hardware_runs(circuit_id, hardware_dir, output_dir):
     hw_paths = [Path(hardware_dir) / f"{circuit_id}_run{i}.json" for i in range(1, 4)]
 
@@ -103,7 +107,56 @@ def build_full_dataset(circuit_ids, hardware_dir, simulated_dir):
     return df
 
 def leave_one_variant_out_eval(df):
-    pass
+    FEATURE_COLUMNS = ["r_ohms", "l_henries", "c_farads", "log_frequency_hz", "sim_gain_db", "sim_phase_deg"]
+    TARGET_COLUMN = "residual_gain_db"
+
+    variants = df["circuit_id"].unique()
+    fold_results = []
+
+    for held_out_variant in variants:
+        train_df = df[df["circuit_id"] != held_out_variant]
+        test_df = df[df["circuit_id"] == held_out_variant]
+
+        train_X = train_df[FEATURE_COLUMNS]
+        train_y = train_df[TARGET_COLUMN]
+        test_X = test_df[FEATURE_COLUMNS]
+        test_y = test_df[TARGET_COLUMN]
+
+        model = GradientBoostingRegressor(
+                n_estimators=25,
+                learning_rate=0.01,
+                max_depth=2,
+                random_state=42
+        )
+        model.fit(train_X, train_y)
+
+        prediction = model.predict(test_X)
+
+        model_mae = mean_absolute_error(test_y, prediction)
+        naive_baseline_mae = mean_absolute_error(test_y, np.zeros_like(test_y))
+
+        fold_results.append({"held_out_variant": held_out_variant, "model_mae": model_mae, "naive_baseline_mae": naive_baseline_mae})
+
+    return fold_results
 
 def summarize(fold_results):
-    pass
+    model_maes = [r["model_mae"] for r in fold_results]
+    baseline_maes = [r["naive_baseline_mae"] for r in fold_results]
+
+    overall_model_mae = np.mean(model_maes)
+    overall_baseline_mae = np.mean(baseline_maes)
+
+    for r in fold_results:
+        print(r)
+
+    print(f"Overall model MAE: {overall_model_mae:.4f}")
+    print(f"Overall baseline MAE: {overall_baseline_mae:.4f}")
+    print(f"Model beats baseline: {overall_model_mae < overall_baseline_mae}")
+
+    return overall_model_mae < overall_baseline_mae
+
+df = build_full_dataset(["variant_01", "variant_02", "variant_03", "variant_04", "variant_05", "variant_06", "variant_07"], "data/hardware", "data/simulated")
+
+results = leave_one_variant_out_eval(df)
+
+summarize(results)
